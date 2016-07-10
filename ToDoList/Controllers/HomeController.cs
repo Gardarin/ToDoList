@@ -16,7 +16,11 @@ namespace ToDoList.Controllers
             HttpCookie cookie = Request.Cookies.Get("ToDoListAuthId");
             if (cookie == null)
             {
-                return RedirectToAction("SigIn");
+                return RedirectToAction("SigInPage");
+            }
+            if (cookie.Value == "@@@@")
+            {
+                return RedirectToAction("SigInPage");
             }
             return RedirectToAction("UsersToDoList");
         }
@@ -34,7 +38,12 @@ namespace ToDoList.Controllers
             HttpCookie cookie = new HttpCookie("ToDoListAuthId", user.AutId);
             WorkWithDb.Registration(user);
             Response.SetCookie(cookie);
-            return RedirectToAction("Index");
+            return RedirectToAction("UsersToDoList");
+        }
+
+        public ActionResult SigInPage()
+        {
+            return View("SigIn");
         }
 
         [HttpPost]
@@ -46,13 +55,18 @@ namespace ToDoList.Controllers
                 HttpCookie cookie = new HttpCookie("ToDoListAuthId", authUser.AutId);
                 Response.SetCookie(cookie);
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("SigInPage");
         }
 
         public ActionResult SigOut()
         {
-            Response.Cookies.Remove("ToDoListAuthId");
-            return RedirectToAction("Index");
+            HttpCookie cookie = Request.Cookies.Get("ToDoListAuthId");
+            if (cookie != null)
+            {
+                cookie.Value = "@@@@";
+                Response.Cookies.Set(cookie);
+            }
+            return RedirectToAction("SigInPage");
         }
 
         public ActionResult UsersToDoList()
@@ -60,12 +74,12 @@ namespace ToDoList.Controllers
             HttpCookie cookie = Request.Cookies.Get("ToDoListAuthId");
             if (cookie == null)
             {
-                return View("Registration");
+                return RedirectToAction("SigInPage");
             }
             User user = WorkWithDb.GetUserByAuthId(cookie.Value);
             if (user == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("SigInPage");
             }
             return View(user);
         }
@@ -98,7 +112,7 @@ namespace ToDoList.Controllers
                 }
             }
 
-            return Json(items);
+            return Json(items,JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

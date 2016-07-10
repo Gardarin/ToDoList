@@ -24,12 +24,11 @@ ToDoListApp.controller('ItemsController', ['$scope', '$http', function ($scope, 
                 method: "POST",
                 data: $scope.Item
             }).success(function (response) {
-                if (response)
-                {
-                    $scope.Items += $scope.Item;
-                }
+                
+                    //$scope.Items += $scope.Item;
+                $scope.GetItem();
             });
-            console.log($scope.Item);
+            //$scope.GetItem();
     };
 
     $scope.CheckItem = function (id) {
@@ -40,11 +39,12 @@ ToDoListApp.controller('ItemsController', ['$scope', '$http', function ($scope, 
             data: id
         }).success(function (response) {
             if (response) {
+                $scope.GetItem();
             }
         });
     };
 
-    $scope.CheckItem = function (id) {
+    $scope.RemoveItem = function (id) {
         $http({
             headers: { 'Content-Type': 'application/json' },
             url: 'RemoveItem',
@@ -52,6 +52,7 @@ ToDoListApp.controller('ItemsController', ['$scope', '$http', function ($scope, 
             data: id
         }).success(function (response) {
             if (response) {
+                $scope.GetItem();
             }
         });
     };

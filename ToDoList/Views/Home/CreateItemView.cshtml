@@ -1,4 +1,4 @@
-﻿<form class="form-horizontal" ng-controller="AddItemController" role="form">
+﻿<form class="form-horizontal" ng-controller="ItemsController" role="form">
     <div>
         <label for="inputName3" class="col-sm-2 control-label">Name</label>
         <input class="form-control" id="inputName3" placeholder="Name" ng-model="Item.Name">
@@ -15,7 +15,7 @@
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" ng-click="addItem()" class="btn btn-success">Sign up</button>
+            <button type="submit" ng-click="AddItem()" class="btn btn-success">Sign up</button>
         </div>
     </div>
 </form>
