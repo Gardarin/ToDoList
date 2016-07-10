@@ -1,0 +1,21 @@
+﻿<form class="form-horizontal" ng-controller="AddItemController" role="form">
+
+    <label for="inputName3" class="col-sm-2 control-label">Name</label>
+    <input class="form-control" id="inputName3" placeholder="Name" ng-model="Item.Name">
+    <span ng-show="nameRequired">{{nameRequired}}</span>
+
+    <label for="inputEmail3" class="col-sm-2 control-label">Description</label>
+    <input class="form-control" id="inputEmail3" placeholder="Description" ng-model="Item.Description">
+    <span ng-show="emailRequired">{{emailRequired}}</span>
+
+    <label for="inputPassword3" class="col-sm-2 control-label"></label>
+    <input type="date" class="form-control" id="inputPassword3" placeholder="CheckedDate" ng-model="Item.CheckedDate">
+    <span ng-show="passwordRequired">{{passwordRequired}}</span>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" ng-click="addItem()" class="btn btn-success">Sign up</button>
+        </div>
+    </div>
+</form>
+

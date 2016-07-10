@@ -1,7 +1,36 @@
-﻿
+﻿@model ToDoList.Models.User
+
 @{
     ViewBag.Title = "UsersToDoList";
 }
+<html ng-app="ToDoListApp">
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+    <h2>UsersToDoList</h2>
+    <div>
+        <h3>Users name: @Model.Name</h3>
+        <h3>Users email: @Model.Email</h3>
+        <h3>Users id: @Model.Id</h3>
+    </div>
 
-<h2>UsersToDoList</h2>
+    <div ng-controller="ItemsController">
+        <div ng-repeat="item in Items">
+            <div>
+                {{item.Name}} {{item.Description}} {{item.CheckedDate}} {{item.IsChecked}}
+            </div>
+        </div>
+        <div>
+            @{Html.RenderPartial("CreateItemView");}
+        </div>
+    </div>
+    <script src="~/Scripts/angular.min.js"></script>
+    <script type="text/javascript">
+        angular.module('ToDoListApp', []);
+    </script>
+    <script src="~/Scripts/ScriptsForView/ItemsController.js"></script>
+</body>
+</html>
+
 

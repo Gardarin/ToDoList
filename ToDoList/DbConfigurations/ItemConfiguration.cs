@@ -10,7 +10,7 @@ namespace ToDoList.DbConfigurations
     {
         public ItemConfiguration()
         {
-            ToTable("Users");
+            ToTable("Items");
             HasKey(u => u.Id);
             Property(u => u.Name).HasMaxLength(50);
             Property(u => u.Name).HasColumnName("Name");

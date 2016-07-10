@@ -168,6 +168,8 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\ScriptsForView\AddItemController.js" />
+    <Content Include="Scripts\ScriptsForView\ItemsController.js" />
     <Content Include="Scripts\ScriptsForView\RegistrationController.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
@@ -184,11 +186,13 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\UsersToDoList.cshtml" />
     <Content Include="Views\Home\Registration.cshtml" />
-    <Content Include="Views\PartialView\ItemView.cshtml" />
-    <Content Include="Views\PartialView\EditItemView.cshtml" />
-    <Content Include="Views\PartialView\CreatItemView.cshtml" />
+    <Content Include="Views\PartialViews\ItemView.cshtml" />
+    <Content Include="Views\PartialViews\EditItemView.cshtml" />
+    <Content Include="Views\PartialViews\CreateItemView.cshtml" />
+    <Content Include="Views\Home\UsersToDoList.cshtml" />
+    <Content Include="Views\Home\ItemView.cshtml" />
+    <Content Include="Views\Home\CreateItemView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

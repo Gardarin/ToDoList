@@ -1,8 +1,8 @@
-﻿var RegisApp = angular.module('RegisApp');
-RegisApp.controller('RegistrationController', ['$scope', '$http', function($scope, $http) {
+﻿var ToDoListApp = angular.module('ToDoListApp');
+RegisApp.controller('AddItemController', ['$scope', '$http', function ($scope, $http) {
 
-    $scope.User = {};
-    $scope.saveData = function () {
+    $scope.Item = {};
+    $scope.AddItem = function () {
         $scope.nameRequired = '';
         $scope.emailRequired = '';
         $scope.passwordRequired = '';
@@ -25,15 +25,14 @@ RegisApp.controller('RegistrationController', ['$scope', '$http', function($scop
         if ($scope.nameRequired == '' && $scope.emailRequired == '' && $scope.passwordRequired == '') {
             $http({
                 headers: { 'Content-Type': 'application/json' },
-                url: 'RegisUser',
+                url: '',
                 method: "POST",
                 data: $scope.User
             }).success(function (response) {
-               console.log(response);
+
             });
-            
+
             console.log($scope.User);
         }
     };
 }]);
-
