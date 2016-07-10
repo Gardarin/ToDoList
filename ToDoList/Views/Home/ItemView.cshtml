@@ -1,4 +1,6 @@
 ﻿
 <div>
-    {{item.Name}} {{item.Description}} {{item.CheckedDate}} {{item.IsChecked}}
+    {{item.Name}} {{item.Description}} {{item.CheckedDate}} {{item.IsChecked}} 
+    <button ng-click="CheckItem({{item.Id}})"> Check </button>
+    <button ng-click="RemoveItem({{item.Id}})"> Remove </button>
 </div>

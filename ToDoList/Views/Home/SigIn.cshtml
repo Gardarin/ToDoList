@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "SigIn";
+}
+
+<html ng-app="SigInApp">
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+    <div>
+        <div>
+            <h3>Форма sigIn</h3>
+            <form class="form-horizontal" ng-controller="SigInController" role="form">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" id="inputEmail3" placeholder="Email" ng-model="User.Email">
+                    </div>
+                    <span ng-show="emailRequired">{{emailRequired}}</span>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                    <div class="col-sm-4">
+                        <input type="password" class="form-control" id="inputPassword3" placeholder="Password" ng-model="User.Password">
+                    </div>
+                    <span ng-show="passwordRequired">{{passwordRequired}}</span>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" ng-click="SigIn()" class="btn btn-success">Sign up</button>
+                    </div>
+                </div>
+            </form>
+            <p><a href="/Home/Registration">Регистрация</a></p>
+        </div>
+    </div>
+    <script src="~/Scripts/angular.min.js"></script>
+    <script type="text/javascript">
+        angular.module('SigInApp', []);
+    </script>
+    <script src="~/Scripts/ScriptsForView/SigInComtroller.js"></script>
+</body>
+</html>
+

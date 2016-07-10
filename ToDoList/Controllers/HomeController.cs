@@ -16,7 +16,7 @@ namespace ToDoList.Controllers
             HttpCookie cookie = Request.Cookies.Get("ToDoListAuthId");
             if (cookie == null)
             {
-                return RedirectToAction("Registration");
+                return RedirectToAction("SigIn");
             }
             return RedirectToAction("UsersToDoList");
         }
@@ -38,9 +38,15 @@ namespace ToDoList.Controllers
         }
 
         [HttpPost]
-        public string SigIn(User user)
+        public ActionResult SigIn([Bind(Include = "Email, Password")]User user)
         {
-            return "";
+            var authUser = WorkWithDb.GetUserBySigInInfo(user.Email, user.Password);
+            if (authUser != null)
+            {
+                HttpCookie cookie = new HttpCookie("ToDoListAuthId", authUser.AutId);
+                Response.SetCookie(cookie);
+            }
+            return RedirectToAction("Index");
         }
 
         public ActionResult SigOut()
@@ -105,6 +111,42 @@ namespace ToDoList.Controllers
                 item.IsChecked = false;
 
                 WorkWithDb.AddItem(cookie.Value,item);
+                return true;
+            }
+            return false;
+        }
+
+        [HttpPost]
+        public bool CheckItem(int id)
+        {
+            HttpCookie cookie = Request.Cookies.Get("ToDoListAuthId");
+            if (cookie != null)
+            {
+                WorkWithDb.CheckItem(cookie.Value, id);
+                return true;
+            }
+            return false;
+        }
+
+        [HttpPost]
+        public bool RemoveItem(int id)
+        {
+            HttpCookie cookie = Request.Cookies.Get("ToDoListAuthId");
+            if (cookie != null)
+            {
+                WorkWithDb.RemoveItem(cookie.Value, id);
+                return true;
+            }
+            return false;
+        }
+
+        [HttpPost]
+        public bool EditItem(Item item)
+        {
+            HttpCookie cookie = Request.Cookies.Get("ToDoListAuthId");
+            if (cookie != null)
+            {
+                WorkWithDb.EditItem(cookie.Value, item);
                 return true;
             }
             return false;

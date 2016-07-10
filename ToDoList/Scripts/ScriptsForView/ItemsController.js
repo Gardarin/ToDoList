@@ -30,6 +30,43 @@ ToDoListApp.controller('ItemsController', ['$scope', '$http', function ($scope, 
                 }
             });
             console.log($scope.Item);
-        
+    };
+
+    $scope.CheckItem = function (id) {
+        $http({
+            headers: { 'Content-Type': 'application/json' },
+            url: 'CheckItem',
+            method: "POST",
+            data: id
+        }).success(function (response) {
+            if (response) {
+            }
+        });
+    };
+
+    $scope.CheckItem = function (id) {
+        $http({
+            headers: { 'Content-Type': 'application/json' },
+            url: 'RemoveItem',
+            method: "POST",
+            data: id
+        }).success(function (response) {
+            if (response) {
+            }
+        });
+    };
+
+    $scope.EditItem = function () {
+        $http({
+            headers: { 'Content-Type': 'application/json' },
+            url: 'EditItem',
+            method: "POST",
+            data: $scope.Item
+        }).success(function (response) {
+            if (response) {
+                $scope.Items += $scope.Item;
+            }
+        });
+        console.log($scope.Item);
     };
 }]);

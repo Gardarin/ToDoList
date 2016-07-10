@@ -171,6 +171,7 @@
     <Content Include="Scripts\ScriptsForView\AddItemController.js" />
     <Content Include="Scripts\ScriptsForView\ItemsController.js" />
     <Content Include="Scripts\ScriptsForView\RegistrationController.js" />
+    <Content Include="Scripts\ScriptsForView\SigInComtroller.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -193,6 +194,7 @@
     <Content Include="Views\Home\UsersToDoList.cshtml" />
     <Content Include="Views\Home\ItemView.cshtml" />
     <Content Include="Views\Home\CreateItemView.cshtml" />
+    <Content Include="Views\Home\SigIn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

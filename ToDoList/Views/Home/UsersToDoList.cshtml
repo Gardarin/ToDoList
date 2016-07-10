@@ -17,9 +17,7 @@
 
     <div ng-controller="ItemsController">
         <div ng-repeat="item in Items">
-            <div>
-                {{item.Name}} {{item.Description}} {{item.CheckedDate}} {{item.IsChecked}}
-            </div>
+            @{Html.RenderPartial("ItemView");}
         </div>
         <div>
             @{Html.RenderPartial("CreateItemView");}
