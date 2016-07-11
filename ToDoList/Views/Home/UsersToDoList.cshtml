@@ -16,12 +16,6 @@
     </div>
 
     <div ng-controller="ItemsController">
-        <div>
-            {{Items}}
-        </div>
-        <div>
-            {{Item}}
-        </div>
         <div ng-repeat="item in Items">
             @{Html.RenderPartial("ItemView");}
         </div>

@@ -24,50 +24,57 @@ ToDoListApp.controller('ItemsController', ['$scope', '$http', function ($scope, 
                 method: "POST",
                 data: $scope.Item
             }).success(function (response) {
-                
-                    //$scope.Items += $scope.Item;
-                $scope.GetItem();
+                if (response)
+                {
+                    $scope.Items.push($scope.Item)
+                }
             });
-            //$scope.GetItem();
+            
     };
 
     $scope.CheckItem = function (id) {
+        console.log(id);
+        console.log('test');
         $http({
             headers: { 'Content-Type': 'application/json' },
             url: 'CheckItem',
             method: "POST",
-            data: id
+            data: id.Id
         }).success(function (response) {
             if (response) {
-                $scope.GetItem();
+                id.IsChecked=true;
+               
             }
         });
     };
 
     $scope.RemoveItem = function (id) {
+        console.log(id);
+        console.log('test');
         $http({
             headers: { 'Content-Type': 'application/json' },
             url: 'RemoveItem',
             method: "POST",
-            data: id
+            data: id.Id
         }).success(function (response) {
             if (response) {
-                $scope.GetItem();
+                var index = Items.indexOf(id)
+                Items.splice(index, 1)
+                
             }
         });
     };
 
-    $scope.EditItem = function () {
+    $scope.EditItem = function (item) {
         $http({
             headers: { 'Content-Type': 'application/json' },
             url: 'EditItem',
             method: "POST",
-            data: $scope.Item
+            data: item
         }).success(function (response) {
             if (response) {
-                $scope.Items += $scope.Item;
+                
             }
         });
-        console.log($scope.Item);
     };
 }]);

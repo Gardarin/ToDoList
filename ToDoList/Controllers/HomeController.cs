@@ -131,39 +131,39 @@ namespace ToDoList.Controllers
         }
 
         [HttpPost]
-        public bool CheckItem(int id)
+        public JsonResult CheckItem(int id)
         {
             HttpCookie cookie = Request.Cookies.Get("ToDoListAuthId");
             if (cookie != null)
             {
                 WorkWithDb.CheckItem(cookie.Value, id);
-                return true;
+                return Json(true, JsonRequestBehavior.AllowGet);
             }
-            return false;
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public bool RemoveItem(int id)
+        public JsonResult RemoveItem(int id)
         {
             HttpCookie cookie = Request.Cookies.Get("ToDoListAuthId");
             if (cookie != null)
             {
                 WorkWithDb.RemoveItem(cookie.Value, id);
-                return true;
+                return Json(true, JsonRequestBehavior.AllowGet);
             }
-            return false;
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public bool EditItem(Item item)
+        public JsonResult EditItem(Item item)
         {
             HttpCookie cookie = Request.Cookies.Get("ToDoListAuthId");
             if (cookie != null)
             {
                 WorkWithDb.EditItem(cookie.Value, item);
-                return true;
+                return Json(true, JsonRequestBehavior.AllowGet);
             }
-            return false;
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
     }
 }

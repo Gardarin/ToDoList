@@ -2,8 +2,8 @@
 <div>
     <label> {{item.Name}} </label>
     <label>{{item.Description}}</label>
-    <label>{{document.write(day[item.CheckedDate.getDay()]+" " +item.CheckedDate.getDate()+ " " + month[item.CheckedDate.getMonth()]+ " " + item.CheckedDate.getFullYear() + " г.");}}</label>
+    <label>{{item.CheckedDate.getDate()}}</label>
     <label>{{item.IsChecked}}</label> 
-    <button ng-click="CheckItem({{item.Id}})"> Check </button>
-    <button ng-click="RemoveItem({{item.Id}})"> Remove </button>
+    <button ng-click="CheckItem(item)"> Check </button>
+    <button ng-click="RemoveItem(item)"> Remove </button>
 </div>

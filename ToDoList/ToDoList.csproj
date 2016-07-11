@@ -188,9 +188,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Registration.cshtml" />
-    <Content Include="Views\PartialViews\ItemView.cshtml" />
-    <Content Include="Views\PartialViews\EditItemView.cshtml" />
-    <Content Include="Views\PartialViews\CreateItemView.cshtml" />
+    <Content Include="Views\Home\EditItemView.cshtml" />
     <Content Include="Views\Home\UsersToDoList.cshtml" />
     <Content Include="Views\Home\ItemView.cshtml" />
     <Content Include="Views\Home\CreateItemView.cshtml" />
