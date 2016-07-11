@@ -3,6 +3,8 @@ ToDoListApp.controller('ItemsController', ['$scope', '$http', function ($scope, 
 
     $scope.Items = [];
     $scope.Item = {};
+    $scope.check = false;
+    $scope.loaded = true;
     $scope.nameRequired = '';
     $scope.descriptionRequired = '';
     $scope.checkedDateRequired = '';
@@ -39,9 +41,13 @@ ToDoListApp.controller('ItemsController', ['$scope', '$http', function ($scope, 
                 data: $scope.Item
             }).success(function (response) {
                 if (response) {
+                    $scope.Item = {};
                     $scope.GetItem();
-                    $scope.Items.push($scope.Item);
-                    $scope.Item = new [];
+                    $scope.$apply(function () {
+                        $scope.GetItem();
+                    });
+                    //$scope.Items.push($scope.Item);
+                    //$scope.Item = new [];
                 }
             });
         }
@@ -87,4 +93,11 @@ ToDoListApp.controller('ItemsController', ['$scope', '$http', function ($scope, 
             }
         });
     };
+
+    $scope.CheckFilter = function () {
+        console.log('test');
+        console.log($scope.check);
+        $scope.check = !$scope.check;
+    };
+
 }]);
