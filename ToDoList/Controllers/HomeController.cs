@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Script.Services;
-using ToDoList.Models; 
+using ToDoList.Models;
 
 namespace ToDoList.Controllers
 {
@@ -112,11 +112,11 @@ namespace ToDoList.Controllers
                 }
             }
 
-            return Json(items,JsonRequestBehavior.AllowGet);
+            return Json(items, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public bool AddItem([Bind(Include = "Name, Description, CheckedDate")]Item item)
+        public JsonResult AddItem([Bind(Include = "Name, Description, CheckedDate")]Item item)
         {
             HttpCookie cookie = Request.Cookies.Get("ToDoListAuthId");
             if (cookie != null)
@@ -124,10 +124,10 @@ namespace ToDoList.Controllers
                 item.CreationDate = DateTime.Now;
                 item.IsChecked = false;
 
-                WorkWithDb.AddItem(cookie.Value,item);
-                return true;
+                WorkWithDb.AddItem(cookie.Value, item);
+                return Json(true);
             }
-            return false;
+            return Json(true);
         }
 
         [HttpPost]
@@ -137,9 +137,9 @@ namespace ToDoList.Controllers
             if (cookie != null)
             {
                 WorkWithDb.CheckItem(cookie.Value, id);
-                return Json(true, JsonRequestBehavior.AllowGet);
+                return Json(true);
             }
-            return Json(true, JsonRequestBehavior.AllowGet);
+            return Json(false);
         }
 
         [HttpPost]
@@ -149,9 +149,9 @@ namespace ToDoList.Controllers
             if (cookie != null)
             {
                 WorkWithDb.RemoveItem(cookie.Value, id);
-                return Json(true, JsonRequestBehavior.AllowGet);
+                return Json(true);
             }
-            return Json(true, JsonRequestBehavior.AllowGet);
+            return Json(false);
         }
 
         [HttpPost]
@@ -161,9 +161,9 @@ namespace ToDoList.Controllers
             if (cookie != null)
             {
                 WorkWithDb.EditItem(cookie.Value, item);
-                return Json(true, JsonRequestBehavior.AllowGet);
+                return Json(true);
             }
-            return Json(true, JsonRequestBehavior.AllowGet);
+            return Json(false);
         }
     }
 }

@@ -2,7 +2,10 @@
 ToDoListApp.controller('ItemsController', ['$scope', '$http', function ($scope, $http) {
 
     $scope.Items = [];
-    $scope.Item = {}; 
+    $scope.Item = {};
+    $scope.nameRequired = '';
+    $scope.descriptionRequired = '';
+    $scope.checkedDateRequired = '';
     $http.get('GetItems').success(function (response) {
         $scope.Items = response;
         console.log($scope.Items);
@@ -16,51 +19,58 @@ ToDoListApp.controller('ItemsController', ['$scope', '$http', function ($scope, 
             console.log(response);
         });
     };
-    
+
     $scope.AddItem = function () {
+        if (!$scope.Item.Name) {
+            $scope.nameRequired = 'Name Required';
+        }
+        if (!$scope.Item.Description) {
+            $scope.descriptionRequired = 'Description Required';
+        }
+        if (!$scope.Item.CheckedDate) {
+            $scope.checkedDateRequired = 'CheckedDate Required';
+        }
+
+        if ($scope.checkedDateRequired == '' && $scope.descriptionRequired == '' && $scope.nameRequired == '') {
             $http({
                 headers: { 'Content-Type': 'application/json' },
                 url: 'AddItem',
                 method: "POST",
                 data: $scope.Item
             }).success(function (response) {
-                if (response)
-                {
-                    $scope.Items.push($scope.Item)
+                if (response) {
+                    $scope.GetItem();
+                    $scope.Items.push($scope.Item);
+                    $scope.Item = new [];
                 }
             });
-            
+        }
     };
 
     $scope.CheckItem = function (id) {
-        console.log(id);
-        console.log('test');
         $http({
             headers: { 'Content-Type': 'application/json' },
             url: 'CheckItem',
             method: "POST",
-            data: id.Id
+            data: {id: id.Id}
         }).success(function (response) {
             if (response) {
-                id.IsChecked=true;
-               
+                id.IsChecked = true;
             }
         });
     };
 
     $scope.RemoveItem = function (id) {
-        console.log(id);
-        console.log('test');
         $http({
             headers: { 'Content-Type': 'application/json' },
             url: 'RemoveItem',
             method: "POST",
-            data: id.Id
+            data: { id: id.Id }
         }).success(function (response) {
             if (response) {
-                var index = Items.indexOf(id)
-                Items.splice(index, 1)
-                
+                var index = $scope.Items.indexOf(id);
+                $scope.Items.splice(index, 1);
+
             }
         });
     };
@@ -73,7 +83,7 @@ ToDoListApp.controller('ItemsController', ['$scope', '$http', function ($scope, 
             data: item
         }).success(function (response) {
             if (response) {
-                
+
             }
         });
     };

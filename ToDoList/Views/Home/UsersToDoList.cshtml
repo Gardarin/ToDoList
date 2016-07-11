@@ -16,9 +16,19 @@
     </div>
 
     <div ng-controller="ItemsController">
-        <div ng-repeat="item in Items">
-            @{Html.RenderPartial("ItemView");}
-        </div>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>CheckedDate</th>
+                <th>IsChecked</th>
+                <th>Check</th>
+                <th>Remove</th>
+            </tr>
+            <tr ng-repeat="item in Items">
+                @{Html.RenderPartial("ItemView");}
+            </tr>
+        </table>
         <div>
             @{Html.RenderPartial("CreateItemView");}
         </div>
