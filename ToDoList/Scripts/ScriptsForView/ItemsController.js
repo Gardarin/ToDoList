@@ -1,4 +1,5 @@
-﻿var ToDoListApp = angular.module('ToDoListApp');
+﻿var ToDoListApp = angular.module('ToDoListApp', []);
+
 ToDoListApp.controller('ItemsController', ['$scope', '$http', function ($scope, $http) {
 
     $scope.Items = [];
@@ -10,18 +11,8 @@ ToDoListApp.controller('ItemsController', ['$scope', '$http', function ($scope, 
     $scope.checkedDateRequired = '';
     $http.get('GetItems').success(function (response) {
         $scope.Items = response;
-        console.log($scope.Items);
-        console.log(response);
+        
     });
-
-    $scope.GetItem = function () {
-        $http.get('GetItems').success(function (response) {
-            $scope.Items = response;
-            console.log($scope.Items);
-            console.log(response);
-        });
-    };
-
     $scope.AddItem = function () {
         if (!$scope.Item.Name) {
             $scope.nameRequired = 'Name Required';
@@ -41,13 +32,10 @@ ToDoListApp.controller('ItemsController', ['$scope', '$http', function ($scope, 
                 data: $scope.Item
             }).success(function (response) {
                 if (response) {
-                    $scope.Item = {};
-                    $scope.GetItem();
-                    $scope.$apply(function () {
-                        $scope.GetItem();
-                    });
-                    //$scope.Items.push($scope.Item);
-                    //$scope.Item = new [];
+                    $scope.Item.IsChecked = false;
+                    $scope.Items.push($scope.Item);
+                    //$scope.GetItem();
+                    
                 }
             });
         }
@@ -93,11 +81,13 @@ ToDoListApp.controller('ItemsController', ['$scope', '$http', function ($scope, 
             }
         });
     };
-
+    $scope.wrap = {
+        check:false
+    }
     $scope.CheckFilter = function () {
         console.log('test');
-        console.log($scope.check);
-        $scope.check = !$scope.check;
+        console.log($scope.wrap.check);
+        $scope.wrap.check = !$scope.wrap.check;
     };
 
 }]);
