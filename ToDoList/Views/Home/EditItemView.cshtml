@@ -1,20 +1,24 @@
-﻿<form class="form-horizontal"  role="form">
-    
-        <label for="inputName3" class="col-sm-2 control-label">Name</label>
-        <input class="form-control" id="inputName3" placeholder="Name" ng-model="item.Name">
-        <span ng-show="nameRequired">{{nameRequired}}</span>
-    
-        <label for="inputEmail3" class="col-sm-2 control-label">Description</label>
-        <input class="form-control" id="inputEmail3" placeholder="Description" ng-model="item.Description">
-        <span ng-show="emailRequired">{{emailRequired}}</span>
-   
-        <label for="inputPassword3" class="col-sm-2 control-label"></label>
-        <input type="date" class="form-control" id="inputPassword3" placeholder="CheckedDate" ng-model="item.CheckedDate">
-        <span ng-show="passwordRequired">{{passwordRequired}}</span>
-   
-     <div class="form-group">
-        <div>
-            <button type="submit" ng-click="EditItem(item)" class="btn btn-success">Edit</button>
+﻿<form class="form-horizontal" name="EditItemForm"  role="form">
+    <input type="checkbox" name="show" placeholder="Edit" ng-click="showBlock = ! showBlock" />
+    <span ng-show="showBlock">
+        <label for="inputName3" class="control-label">Name</label>
+        <input class="form-control" name="inputName" id="inputName3" placeholder="Name" ng-model="item.Name" required>
+        <span ng-show="EditItemForm.inputName.$error.required">Name is required</span>
+
+        <label for="inputName3" class="control-label">Description</label>
+        <input class="form-control" name="inputDescription" id="inputEmail3" placeholder="Description" ng-model="item.Description" required>
+        <span ng-show="EditItemForm.inputDescription.$error.required">Description is required</span>
+
+        <label for="inputName3" class="control-label">Date</label>
+        <input type="datetime-local" name="inputDate" class="form-control" id="inputPassword3" placeholder="CheckedDate" ng-model="item.CheckedDate" required>
+        <span ng-show="EditItemForm.inputDate.$error.required">Date is required</span>
+
+        <div class="form-group">
+            <div>
+                <span ng-hide="EditItemForm.$invalid">
+                    <button type="submit" ng-click="EditItem(item)" class="btn btn-success">Edit</button>
+                </span>
+            </div>
         </div>
-    </div>
+    </span>
 </form>

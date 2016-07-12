@@ -1,30 +1,38 @@
-﻿<form class="form-horizontal"  role="form">
-    <div>
+﻿<form class="form-horizontal" name="CreateItemForm"  role="form">
+    <h3> <label for="inputName3" class="control-label"> 
+        Add item? 
+        <input type="checkbox" name="show" placeholder="Edit" ng-click="showAddItem = ! showAddItem" />
+        </label>
+    </h3>
+    
+    <span ng-show="showAddItem">
         <div>
-            <label for="inputName3" class="col-sm-2 control-label">Name</label>
-            <input class="form-control" id="inputName3" placeholder="Name" ng-model="Item.Name">
-            <span ng-show="nameRequired">{{nameRequired}}</span>
+            <div>
+                <label for="inputName3" class="control-label">Name</label>
+                <input class="form-control" name="inputName" id="inputName3" placeholder="Name" ng-model="Item.Name" required>
+                <span ng-show="CreateItemForm.inputName.$error.required">Name is required</span>
+            </div>
+
+            <div>
+                <label for="inputEmail3" class="control-label">Description</label>
+                <input class="form-control" name="inputDescription" id="inputEmail3" placeholder="Description" ng-model="Item.Description" required>
+                <span ng-show="CreateItemForm.inputDescription.$error.required">Description is required</span>
+            </div>
+
+            <div>
+                <label for="inputPassword3" class="control-label"> Date</label>
+                <input type="date" name="inputDate" class="form-control" id="inputPassword3" placeholder="CheckedDate" ng-model="Item.CheckedDate" required>
+                <span ng-show="CreateItemForm.inputDate.$error.required">Date is required</span>
+            </div>
+
         </div>
 
-        <div>
-            <label for="inputEmail3" class="col-sm-2 control-label">Description</label>
-            <input class="form-control" id="inputEmail3" placeholder="Description" ng-model="Item.Description">
-            <span ng-show="descriptionRequired">{{descriptionRequired}}</span>
+        <div class="form-group">
+            <div>
+                <button type="submit" ng-click="AddItem()" class="btn btn-success">Add</button>
+            </div>
         </div>
-
-        <div>
-            <label for="inputPassword3" class="col-sm-2 control-label"></label>
-            <input type="date" class="form-control" id="inputPassword3" placeholder="CheckedDate" ng-model="Item.CheckedDate">
-            <span ng-show="checkedDateRequired">{{checkedDateRequired}}</span>
-        </div>
-
-    </div>
-
-    <div class="form-group">
-        <div>
-            <button type="submit" ng-click="AddItem()" class="btn btn-success">Add</button>
-        </div>
-    </div>
+    </span>
 </form>
 
 

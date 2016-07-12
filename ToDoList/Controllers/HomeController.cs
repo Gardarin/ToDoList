@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
-using System.Web.Script.Services;
+using System.Runtime.Serialization.Json;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System.Text;
 using ToDoList.Models;
 
 namespace ToDoList.Controllers
@@ -111,8 +114,18 @@ namespace ToDoList.Controllers
                     items = user.Items;
                 }
             }
+            JsonSerializerSettings DateFormatSettings = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat
+            };
+            string javascriptJson = JsonConvert.SerializeObject(items, new JavaScriptDateTimeConverter());
+            //Response.Write(javascriptJson);
+            JsonResult jr = new CustomJsonResult();
+            jr.Data = items;
 
-            return Json(items, JsonRequestBehavior.AllowGet);
+            //jr.Data = javascriptJson;
+            jr.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return jr;
         }
 
         [HttpPost]
@@ -164,6 +177,48 @@ namespace ToDoList.Controllers
                 return Json(true);
             }
             return Json(false);
+        }
+
+    }
+
+    public class CustomJsonResult : JsonResult
+    {
+        public CustomJsonResult()
+        {
+            JsonRequestBehavior = JsonRequestBehavior.DenyGet;
+        }
+        public override void ExecuteResult(ControllerContext context)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException("context");
+            }
+            if (JsonRequestBehavior == JsonRequestBehavior.DenyGet &&
+                String.Equals(context.HttpContext.Request.HttpMethod, "GET", StringComparison.OrdinalIgnoreCase))
+            {
+                throw new InvalidOperationException("qqq");
+            }
+
+            HttpResponseBase response = context.HttpContext.Response;
+
+            if (!String.IsNullOrEmpty(ContentType))
+            {
+                response.ContentType = ContentType;
+            }
+            else
+            {
+                response.ContentType = "application/json";
+            }
+            if (ContentEncoding != null)
+            {
+                response.ContentEncoding = ContentEncoding;
+            }
+            if (Data != null)
+            {
+               
+                string javascriptJson = JsonConvert.SerializeObject(Data);
+                response.Write(javascriptJson);
+            }
         }
     }
 }

@@ -5,26 +5,20 @@ ToDoListApp.controller('ItemsController', ['$scope', '$http', function ($scope, 
     $scope.Items = [];
     $scope.Item = {};
     $scope.check = false;
-    $scope.loaded = true;
     $scope.nameRequired = '';
     $scope.descriptionRequired = '';
     $scope.checkedDateRequired = '';
     $http.get('GetItems').success(function (response) {
-        $scope.Items = response;
-        
+        for (let value of response) {
+            value.CheckedDate = new Date(value.CheckedDate);
+            $scope.Items.push(value);
+        }
+        //$scope.Items = response;
     });
-    $scope.AddItem = function () {
-        if (!$scope.Item.Name) {
-            $scope.nameRequired = 'Name Required';
-        }
-        if (!$scope.Item.Description) {
-            $scope.descriptionRequired = 'Description Required';
-        }
-        if (!$scope.Item.CheckedDate) {
-            $scope.checkedDateRequired = 'CheckedDate Required';
-        }
 
-        if ($scope.checkedDateRequired == '' && $scope.descriptionRequired == '' && $scope.nameRequired == '') {
+    $scope.AddItem = function () {
+
+        if ($scope.CreateItemForm.$valid) {
             $http({
                 headers: { 'Content-Type': 'application/json' },
                 url: 'AddItem',
@@ -34,8 +28,7 @@ ToDoListApp.controller('ItemsController', ['$scope', '$http', function ($scope, 
                 if (response) {
                     $scope.Item.IsChecked = false;
                     $scope.Items.push($scope.Item);
-                    //$scope.GetItem();
-                    
+                    $scope.Item = {};
                 }
             });
         }
@@ -70,17 +63,18 @@ ToDoListApp.controller('ItemsController', ['$scope', '$http', function ($scope, 
     };
 
     $scope.EditItem = function (item) {
-        $http({
-            headers: { 'Content-Type': 'application/json' },
-            url: 'EditItem',
-            method: "POST",
-            data: item
-        }).success(function (response) {
-            if (response) {
+            $http({
+                headers: { 'Content-Type': 'application/json' },
+                url: 'EditItem',
+                method: "POST",
+                data: item
+            }).success(function (response) {
+                if (response) {
 
-            }
-        });
+                }
+            });
     };
+
     $scope.wrap = {
         check:false
     }
