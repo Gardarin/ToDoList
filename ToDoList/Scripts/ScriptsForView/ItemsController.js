@@ -27,6 +27,7 @@ ToDoListApp.controller('ItemsController', ['$scope', '$http', function ($scope, 
             }).success(function (response) {
                 if (response) {
                     $scope.Item.IsChecked = false;
+                    $scope.Item.Id = response;
                     $scope.Items.push($scope.Item);
                     $scope.Item = {};
                 }
@@ -79,8 +80,6 @@ ToDoListApp.controller('ItemsController', ['$scope', '$http', function ($scope, 
         check:false
     }
     $scope.CheckFilter = function () {
-        console.log('test');
-        console.log($scope.wrap.check);
         $scope.wrap.check = !$scope.wrap.check;
     };
 

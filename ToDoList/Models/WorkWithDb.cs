@@ -32,12 +32,13 @@ namespace ToDoList.Models
             }
         }
 
-        public static void AddItem(string authId, Item item)
+        public static int AddItem(string authId, Item item)
         {
             using (ToDoListDbContext toDoList = new ToDoListDbContext())
             {
                 toDoList.Users.Include("Items").FirstOrDefault(x => x.AutId == authId).Items.Add(item);
                 toDoList.SaveChanges();
+                return toDoList.Users.Include("Items").FirstOrDefault(x => x.AutId == authId).Items.Last().Id;
             }
         }
 
@@ -67,11 +68,16 @@ namespace ToDoList.Models
             {
                 var items = toDoList.Users.Include("Items").FirstOrDefault(x => x.AutId == authId).Items;
                 var finItem = items.FirstOrDefault(i => i.Id == item.Id);
+                if (finItem == null)
+                {
+                    return;
+                }
                 finItem.Description = item.Description;
                 finItem.CheckedDate = item.CheckedDate;
                 finItem.Name = item.Name;
                 toDoList.SaveChanges();
             }
         }
+
     }
 }

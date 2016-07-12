@@ -14,17 +14,18 @@ namespace ToDoList.Controllers
 {
     public class HomeController : Controller
     {
+        //Регистрация была изменена с целью упростить тестирование  
         public ActionResult Index()
         {
-            HttpCookie cookie = Request.Cookies.Get("ToDoListAuthId");
-            if (cookie == null)
-            {
-                return RedirectToAction("SigInPage");
-            }
-            if (cookie.Value == "@@@@")
-            {
-                return RedirectToAction("SigInPage");
-            }
+            //HttpCookie cookie = Request.Cookies.Get("ToDoListAuthId");
+            //if (cookie == null)
+            //{
+            //    return RedirectToAction("SigInPage");
+            //}
+            //if (cookie.Value == "@@@@")
+            //{
+            //    return RedirectToAction("SigInPage");
+            //}
             return RedirectToAction("UsersToDoList");
         }
 
@@ -46,7 +47,8 @@ namespace ToDoList.Controllers
 
         public ActionResult SigInPage()
         {
-            return View("SigIn");
+            //return View("SigIn");
+            return RedirectToAction("UsersToDoList");
         }
 
         [HttpPost]
@@ -58,31 +60,40 @@ namespace ToDoList.Controllers
                 HttpCookie cookie = new HttpCookie("ToDoListAuthId", authUser.AutId);
                 Response.SetCookie(cookie);
             }
-            return RedirectToAction("SigInPage");
+            return RedirectToAction("UsersToDoList");
         }
 
         public ActionResult SigOut()
         {
-            HttpCookie cookie = Request.Cookies.Get("ToDoListAuthId");
-            if (cookie != null)
-            {
-                cookie.Value = "@@@@";
-                Response.Cookies.Set(cookie);
-            }
-            return RedirectToAction("SigInPage");
+            //HttpCookie cookie = Request.Cookies.Get("ToDoListAuthId");
+            //if (cookie != null)
+            //{
+            //    cookie.Value = "@@@@";
+            //    Response.Cookies.Set(cookie);
+            //}
+            return RedirectToAction("UsersToDoList");
         }
 
         public ActionResult UsersToDoList()
         {
             HttpCookie cookie = Request.Cookies.Get("ToDoListAuthId");
+            User user;
             if (cookie == null)
             {
-                return RedirectToAction("SigInPage");
+                user = new Models.User();
+                user.Name = "user";
+                user.Password = "1";
+                user.Email = "a@mail.com";
+                return RegisUser(user);
             }
-            User user = WorkWithDb.GetUserByAuthId(cookie.Value);
+            user = WorkWithDb.GetUserByAuthId(cookie.Value);
             if (user == null)
             {
-                return RedirectToAction("SigInPage");
+                user = new Models.User();
+                user.Name = "user";
+                user.Password = "1";
+                user.Email = "a@mail.com";
+                return RegisUser(user);
             }
             return View(user);
         }
@@ -137,10 +148,10 @@ namespace ToDoList.Controllers
                 item.CreationDate = DateTime.Now;
                 item.IsChecked = false;
 
-                WorkWithDb.AddItem(cookie.Value, item);
-                return Json(true);
+                int id = WorkWithDb.AddItem(cookie.Value, item);
+                return Json(id);
             }
-            return Json(true);
+            return Json(-1);
         }
 
         [HttpPost]

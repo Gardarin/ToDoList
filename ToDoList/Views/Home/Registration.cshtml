@@ -11,27 +11,27 @@
     <div>
         <div>
             <h3>Форма reg</h3>
-            <form class="form-horizontal" ng-controller="RegistrationController" role="form">
+            <form class="form-horizontal" name="registrationForm" ng-controller="RegistrationController" role="form">
                 <div class="form-group">
                     <label for="inputName3" class="col-sm-2 control-label">Name</label>
                     <div class="col-sm-4">
-                        <input class="form-control" id="inputName3" placeholder="Name" ng-model="User.Name">
+                        <input class="form-control" name="inputName" id="inputName3" placeholder="Name" ng-model="User.Name" required>
                     </div>
-                    <span ng-show="nameRequired">{{nameRequired}}</span>
+                    <span ng-show="registrationForm.inputPassword.$error.required">Name is required</span>
                 </div>
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
                     <div class="col-sm-4">
-                        <input class="form-control" id="inputEmail3" placeholder="Email" ng-model="User.Email">
+                        <input class="form-control" name="inputEmail" id="inputEmail3" placeholder="Email" ng-model="User.Email" required>
                     </div>
-                    <span ng-show="emailRequired">{{emailRequired}}</span>
+                    <span ng-show="registrationForm.inputEmail.$error.required">Email is required</span>
                 </div>
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
                     <div class="col-sm-4">
-                        <input type="password" class="form-control" id="inputPassword3" placeholder="Password" ng-model="User.Password">
+                        <input type="password" name="inputPassword" class="form-control" id="inputPassword3" placeholder="Password" ng-model="User.Password" required>
                     </div>
-                    <span ng-show="passwordRequired">{{passwordRequired}}</span>
+                    <span ng-show="registrationForm.inputPassword.$error.required">Password is required</span>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
@@ -42,9 +42,9 @@
         </div>
     </div>
     <script src="~/Scripts/angular.min.js"></script>
-    <script type="text/javascript">
+    @*<script type="text/javascript">
         angular.module('RegisApp', []);
-    </script>
+    </script>*@
     <script src="~/Scripts/ScriptsForView/RegistrationController.js"></script>
     </body>
 </html>
